@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collab Canvas</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #111114;
+      --surface: #18181c;
+      --border: #27272a;
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --active: #3b82f6;
+      --active-hover: #2563eb;
+      --radius: 8px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: var(--font);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      color: var(--text);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      padding: 40px 20px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--active);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg { width: 30px; height: 30px; color: #fff; }
+
+    .logo h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+    }
+
+    .logo p {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .btn-primary {
+      background: var(--active);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--active-hover); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--border); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .input-group label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-row input {
+      flex: 1;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+      transition: border-color .15s;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    .input-row input::placeholder {
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      color: var(--text-muted);
+      opacity: .5;
+    }
+
+    .input-row input:focus { border-color: var(--active); }
+
+    .input-row .btn {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .error {
+      color: #ef4444;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error.visible { display: block; }
+
+    @media (max-width: 600px) {
+      .container { gap: 28px; padding: 24px 16px; }
+      .logo-icon { width: 44px; height: 44px; }
+      .logo-icon svg { width: 24px; height: 24px; }
+      .logo h1 { font-size: 20px; }
+      .logo p { font-size: 12px; }
+      .card { padding: 20px; gap: 14px; }
+      .btn { padding: 10px 16px; font-size: 13px; }
+      .input-row input { padding: 8px 10px; font-size: 12px; }
+      .input-row .btn { padding: 8px 14px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+          <path d="m15 5 4 4"/>
+        </svg>
+      </div>
+      <h1>Collab Canvas</h1>
+      <p>Draw together in real-time.<br>Create a room and share the code.</p>
+    </div>
+
+    <div class="card">
+      <button class="btn btn-primary" id="createBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Create New Room
+      </button>
+
+      <div class="divider">or join existing</div>
+
+      <div class="input-group">
+        <label for="roomInput">Room Code</label>
+        <div class="input-row">
+          <input type="text" id="roomInput" placeholder="e.g. ABC-DEF-GHI" maxlength="11" autocomplete="off" spellcheck="false">
+          <button class="btn btn-secondary" id="joinBtn">Join</button>
+        </div>
+        <div class="error" id="errorEl"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BACKEND_URL = (() => {
+      const h = location.hostname;
+      if (h.endsWith('.vercel.app') || h === 'collab-canvas.vercel.app') return 'https://collab-canvas-0607.onbelmo.uk';
+      return '';
+    })();
+
+    const createBtn = document.getElementById('createBtn');
+    const joinBtn = document.getElementById('joinBtn');
+    const roomInput = document.getElementById('roomInput');
+    const errorEl = document.getElementById('errorEl');
+
+    const urlError = new URLSearchParams(location.search).get('error');
+    if (urlError === 'notfound') {
+      errorEl.textContent = 'This room does not exist. Check the code or create a new room.';
+      errorEl.classList.add('visible');
+    }
+
+    function normalizeCode(code) {
+      return code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    }
+
+    function formatCode(raw) {
+      const c = normalizeCode(raw);
+      if (c.length <= 3) return c;
+      if (c.length <= 6) return c.slice(0,3) + '-' + c.slice(3);
+      return c.slice(0,3) + '-' + c.slice(3,6) + '-' + c.slice(6,9);
+    }
+
+    roomInput.addEventListener('input', () => {
+      const cursor = roomInput.selectionStart;
+      const before = roomInput.value;
+      roomInput.value = formatCode(before);
+      const diff = roomInput.value.length - before.length;
+      roomInput.setSelectionRange(cursor + diff, cursor + diff);
+      errorEl.classList.remove('visible');
+    });
+
+    function isValidRoom(code) {
+      return /^[A-Z0-9]{3}-[A-Z0-9]{3}-[A-Z0-9]{3}$/.test(code);
+    }
+
+    async function joinRoom(code) {
+      const c = code.toUpperCase();
+      if (!isValidRoom(c)) {
+        errorEl.textContent = 'Invalid room code. Use format: ABC-DEF-GHI';
+        errorEl.classList.add('visible');
+        return;
+      }
+      joinBtn.disabled = true;
+      joinBtn.textContent = 'Checking...';
+      try {
+        const res = await fetch(BACKEND_URL + '/api/room/check?code=' + encodeURIComponent(c));
+        const data = await res.json();
+        if (!data.exists) {
+          errorEl.textContent = 'This room does not exist. Check the code or create a new room.';
+          errorEl.classList.add('visible');
+          joinBtn.disabled = false;
+          joinBtn.textContent = 'Join';
+          return;
+        }
+        window.location.href = '/canvas?room=' + c;
+      } catch {
+        errorEl.textContent = 'Error checking room. Try again.';
+        errorEl.classList.add('visible');
+        joinBtn.disabled = false;
+        joinBtn.textContent = 'Join';
+      }
+    }
+
+    roomInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') joinRoom(roomInput.value);
+    });
+
+    joinBtn.addEventListener('click', () => joinRoom(roomInput.value));
+
+    createBtn.addEventListener('click', async () => {
+      createBtn.disabled = true;
+      createBtn.textContent = 'Creating...';
+      try {
+        const res = await fetch(BACKEND_URL + '/api/room');
+        const data = await res.json();
+        window.location.href = '/canvas?room=' + data.roomId;
+      } catch {
+        createBtn.disabled = false;
+        createBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Create New Room';
+      }
+    });
+  </script>
+</body>
+</html>
