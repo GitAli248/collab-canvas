@@ -318,12 +318,13 @@
       .tool-btn { width: 30px; height: 30px; }
       .tool-btn svg { width: 15px; height: 15px; }
       .sep-v { width: 20px; }
-      .bottom-bar { height: auto; min-height: 38px; padding: 4px 8px; padding-bottom: calc(4px + constant(safe-area-inset-bottom, 0px)); padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px)); gap: 4px; }
+      .bottom-bar { height: auto; min-height: 38px; padding: 4px 8px; padding-bottom: calc(4px + constant(safe-area-inset-bottom, 0px)); padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px)); gap: 4px; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; }
       .opt-group label { font-size: 8px; }
       input[type="color"] { width: 20px; height: 20px; }
       input[type="range"] { width: 36px; }
       .value-badge { font-size: 9px; min-width: 18px; }
       .swatches { display: none; }
+      .canvas-wrap { padding-bottom: max(38px, calc(38px + constant(safe-area-inset-bottom, 0px))); padding-bottom: calc(38px + env(safe-area-inset-bottom, 0px)); }
       .status-text { font-size: 8px; }
       .opt-hide { display: none; }
       .room-badge { top: 6px; left: 6px; padding: 3px 8px; }
@@ -331,7 +332,7 @@
     }
 
     @media (orientation: portrait) and (max-width: 768px) {
-      body { overflow: hidden; flex-direction: column; height: 100dvh; padding-bottom: env(safe-area-inset-bottom, 0px); }
+      body { overflow: hidden; flex-direction: column; height: 100dvh; }
       .sidebar {
         width: 100%;
         flex-direction: row;
@@ -364,13 +365,14 @@
       .sidebar-status .status-dot { width: 5px; height: 5px; }
       .canvas-wrap { flex: 1; width: 100%; background: #000; }
       .canvas-wrap canvas { height: 100%; }
-      .bottom-bar { height: auto; min-height: 44px; padding: 6px 8px; padding-bottom: calc(6px + constant(safe-area-inset-bottom, 0px)); padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); gap: 6px; }
+      .bottom-bar { height: auto; min-height: 44px; padding: 6px 8px; padding-bottom: calc(6px + constant(safe-area-inset-bottom, 0px)); padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); gap: 6px; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; }
       .bottom-bar .opt-group label { font-size: 10px; white-space: nowrap; }
       .bottom-bar input[type="color"] { width: 26px; height: 26px; }
       .bottom-bar input[type="range"] { width: 60px; }
       .bottom-bar .value-badge { font-size: 10px; min-width: 20px; }
       .bottom-bar .opt-hide { display: none; }
       .swatches { display: none; }
+      .canvas-wrap { padding-bottom: max(44px, calc(44px + constant(safe-area-inset-bottom, 0px))); padding-bottom: calc(44px + env(safe-area-inset-bottom, 0px)); }
       .tool-btn .shortcut { display: none !important; }
       .room-badge { top: 4px; left: 4px; padding: 2px 6px; gap: 3px; }
       .room-badge span { font-size: 9px; letter-spacing: 1px; }
