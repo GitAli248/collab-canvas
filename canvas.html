@@ -318,7 +318,7 @@
       .tool-btn { width: 30px; height: 30px; }
       .tool-btn svg { width: 15px; height: 15px; }
       .sep-v { width: 20px; }
-      .bottom-bar { height: 34px; padding: 2px 6px; gap: 4px; }
+      .bottom-bar { height: auto; min-height: 38px; padding: 4px 8px; padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px)); gap: 4px; }
       .opt-group label { font-size: 8px; }
       input[type="color"] { width: 20px; height: 20px; }
       input[type="range"] { width: 36px; }
@@ -364,10 +364,10 @@
       .sidebar-status .status-dot { width: 5px; height: 5px; }
       .canvas-wrap { flex: 1; width: 100%; background: #000; }
       .canvas-wrap canvas { height: 100%; }
-      .bottom-bar { height: 38px; padding: 2px 6px; gap: 4px; }
-      .bottom-bar .opt-group label { font-size: 10px; }
-      .bottom-bar input[type="color"] { width: 24px; height: 24px; }
-      .bottom-bar input[type="range"] { width: 50px; }
+      .bottom-bar { height: auto; min-height: 44px; padding: 6px 8px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); gap: 6px; }
+      .bottom-bar .opt-group label { font-size: 10px; white-space: nowrap; }
+      .bottom-bar input[type="color"] { width: 26px; height: 26px; }
+      .bottom-bar input[type="range"] { width: 60px; }
       .bottom-bar .value-badge { font-size: 10px; min-width: 20px; }
       .bottom-bar .opt-hide { display: none; }
       .swatches { display: none; }
