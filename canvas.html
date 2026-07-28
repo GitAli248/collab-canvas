@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Collab Canvas</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/favicon.svg">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#111114">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -314,7 +312,6 @@
       letter-spacing: 0;
     }
 
-    /* Landscape mobile: left sidebar layout (same as desktop) */
     @media (orientation: landscape) and (max-width: 900px) {
       .sidebar { width: 44px; }
       .tool-group { width: 40px; padding: 3px 0; }
@@ -333,7 +330,6 @@
       .room-badge span { font-size: 11px; }
     }
 
-    /* Portrait mobile: horizontal toolbar on top, canvas below */
     @media (orientation: portrait) and (max-width: 768px) {
       body { overflow: hidden; flex-direction: column; height: 100dvh; }
       .sidebar {
@@ -932,14 +928,9 @@
       }
     });
 
-    const BACKEND_URL = (() => {
-      const h = location.hostname;
-      if (h.endsWith('.vercel.app') || h === 'collab-canvas.vercel.app') return 'https://collab-canvas-0607.onbelmo.uk';
-      return '';
-    })();
-    const backendHost = BACKEND_URL ? new URL(BACKEND_URL).host : location.host;
-    const proto = location.protocol === 'https:' || BACKEND_URL.startsWith('https') ? 'wss' : 'ws';
-    const ws = new WebSocket(proto + '://' + backendHost + '/?room=' + ROOM);
+    const BACKEND_URL = 'https://collab-canvas-backend-303e.onbelmo.uk';
+    const backendHost = new URL(BACKEND_URL).host;
+    const ws = new WebSocket('wss://' + backendHost + '/?room=' + ROOM);
 
     let _othersCount = 0;
 
